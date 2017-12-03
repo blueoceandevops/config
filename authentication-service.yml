@@ -1,0 +1,63 @@
+spring.profiles.active: development
+---
+spring:
+  profiles: development
+
+
+#data:
+#  mongodb:
+#    host: localhost
+#    database: piggymetrics
+#    port: 27017
+
+server:
+  port: ${PORT:9999}
+  # Use different context-path to avoid session cookie overlapping
+  context-path: /uaa
+  use-forward-headers: false
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: ${DISCOVERY_URL:http://localhost:8761}/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    leaseExpirationDurationInSeconds: 12
+    prefer-ip-address: true
+
+ribbon:
+  eureka:
+    enabled: true
+---
+spring:
+  profiles: docker
+server:
+  port: ${PORT:9999}
+  # Use different context-path to avoid session cookie overlapping
+  context-path: /uaa
+  use-forward-headers: false
+
+#data:
+#  mongodb:
+#    host: localhost
+#    database: piggymetrics
+#    port: 27017
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: ${DISCOVERY_URL:http://localhost:8761}/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    leaseExpirationDurationInSeconds: 12
+    prefer-ip-address: true
+
+ribbon:
+  eureka:
+    enabled: true
+---
+

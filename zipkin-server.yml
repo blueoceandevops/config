@@ -1,0 +1,44 @@
+spring.profiles.active: development
+---
+spring:
+  profiles: development
+
+server:
+  port: ${PORT:9411}
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: ${DISCOVERY_URL:http://localhost:8761}/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    leaseExpirationDurationInSeconds: 12
+    prefer-ip-address: true
+
+ribbon:
+  eureka:
+    enabled: true
+---
+spring:
+  profiles: docker
+server:
+  port: ${PORT:9411}
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: ${DISCOVERY_URL:http://localhost:8761}/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    leaseExpirationDurationInSeconds: 12
+    prefer-ip-address: true
+
+ribbon:
+  eureka:
+    enabled: true
+---
+

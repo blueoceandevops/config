@@ -1,0 +1,123 @@
+spring.profiles.active: development
+---
+spring:
+  profiles: development
+
+info:
+  component: Edge Server
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 20000
+
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
+
+zuul:
+  prefix: /api
+  routes:
+    account:
+      path: /account/**
+      serviceId: account-service
+    customer:
+      path: /customer/**
+      serviceId: customer-service
+    authentication-service:
+      path: /uaa/**
+      url: http://authentication-service:9999
+      sensitiveHeaders:
+      stripPrefix: false
+  add-proxy-headers: true
+
+#security:
+#  basic:
+#    enabled: false
+#  oauth2:
+#    sso:
+#      loginPath: /login
+#    client:
+#      clientId: account-service
+#      clientSecret: account
+#      accessTokenUri: http://localhost:9999/uaa/oauth/token
+#      userAuthorizationUri: /uaa/oauth/authorize
+#      grant-type: client_credentials
+#      scope: server
+#    resource:
+#      jwt:
+#        keyValue: Test
+
+ribbon:
+  ReadTimeout: 20000
+  ConnectTimeout: 20000
+  eureka:
+    enabled: true
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: ${DISCOVERY_URL:http://localhost:8761}/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+    prefer-ip-address: true
+---
+spring:
+  profiles: docker
+info:
+  component: Edge Server
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 20000
+
+endpoints:
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+  health:
+    sensitive: false
+
+zuul:
+  prefix: /api
+  routes:
+    account:
+      path: /account/**
+      serviceId: account-service
+    customer:
+      path: /customer/**
+      serviceId: customer-service
+
+ribbon:
+  ReadTimeout: 20000
+  ConnectTimeout: 20000
+  eureka:
+    enabled: true
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: ${DISCOVERY_URL:http://localhost:8761}/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+    prefer-ip-address: true
+---
+

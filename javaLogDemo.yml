@@ -1,0 +1,60 @@
+spring:
+  profiles: LOCAL
+
+server:
+  tomcat:
+    accessLog.enabled: true
+    basedir: "${LOG_PATH}/javaLog"
+    accessLogPattern: "%h %l %u %t \"%r\" %s %b %D"
+spring.boot.admin.url: http://localhost:2222
+spring.boot.admin.client.health-url: http://localhost:9999/health
+management:
+  port: 9999
+  security:
+    enabled: false
+fixedDelay: 600000
+initialDelay: 60000
+testEncryption: testEncryption
+---
+spring:
+  profiles: INT
+
+server:
+  tomcat:
+    accessLog.enabled: true
+    basedir: "${LOG_PATH}/javaLog"
+    accessLogPattern: "%h %l %u %t \"%r\" %s %b %D"
+
+management:
+  port: 9999
+  security:
+    enabled: false
+
+fixedDelay: 600000
+initialDelay: 60000
+---
+spring:
+  profiles: INTEGRATION_TEST
+
+server:
+  tomcat:
+    accessLog.enabled: false
+
+fixedDelay: 600000
+initialDelay: 60000
+---
+spring:
+  profiles: UAT
+
+fixedDelay: 600000
+initialDelay: 60000
+
+management:
+  security:
+    enabled: false
+
+server:
+  tomcat:
+    accessLog.enabled: true
+    basedir: "${LOG_PATH}/javaLog"
+    accessLogPattern: "%h %l %u %t \"%r\" %s %b %D"

@@ -1,0 +1,37 @@
+spring:
+  profiles: INT
+
+server:
+  port: ${PORT:2222}
+  tomcat:
+    accessLog.enabled: true
+    basedir: "${LOG_PATH}/javaLog"
+    accessLogPattern: "%h %l %u %t \"%r\" %s %b %D"
+
+management:
+  security:
+    enabled: false
+
+---
+spring:
+  profiles: INTEGRATION_TEST
+
+server:
+  tomcat:
+    port: ${PORT:2222}
+    accessLog.enabled: false
+
+---
+spring:
+  profiles: UAT
+
+management:
+  security:
+    enabled: false
+
+server:
+  tomcat:
+    port: ${PORT:2222}
+    accessLog.enabled: true
+    basedir: "${LOG_PATH}/javaLog"
+    accessLogPattern: "%h %l %u %t \"%r\" %s %b %D"
