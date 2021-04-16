@@ -4,4 +4,4 @@ logging:
   level:
     org.springframework.security: DEBUG
 myapp:
-  name: TNT1 
+  name: TNT2
